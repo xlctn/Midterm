@@ -463,7 +463,7 @@ void clientMenu(vector <string>& card, vector<string>& cardNumbers, vector<strin
                     cin >> newPin;
 
                     if(newPin.size() != 6){
-                        cout << "New pin must contain 6 numbers. \n";
+                        cout << "New pin must contain 6 numbers. \n"; q 
                         cout << "Press any key to continue \n";
                         cin >> input;
                         continue;
@@ -481,11 +481,25 @@ void clientMenu(vector <string>& card, vector<string>& cardNumbers, vector<strin
 };
 
 
-void adminMenu();
-
+void adminMenu(vector<string>& cardNumbers, vector<string>& encodedPINs, 
+               vector<double>& balances, vector<string>& userBanks, 
+               vector<string>& accountTypes, int billCount[], string& adminPasscode); {
+    clearScreen();
+    string inputPass;
+    while (attempts < 3) {
+        cout << "Enter Admin Passcode: ";
+        cin >> inputPass;
+        if (inputPass == adminPasscode) break;
+        attempts++;
+        cout << "Incorrect. Attempts left: " << 3 - attempts << endl;
+        if (attempts == 3) {
+            cout << "System Locked. Returning to main menu...\n";
+            return;
+        }
 
 
 int main(){
+    string adminPasscode = "6767"; 
     const int NUM_BANKS = 4;
     string bankNames[NUM_BANKS] = {"BDO", "BPI", "Metrobank", "Security Bank"};
     double localFees[NUM_BANKS] = {25, 20, 30, 15};
