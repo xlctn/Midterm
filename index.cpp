@@ -3,7 +3,6 @@
 using namespace std;
 
 void clearScreen() {
-#if _WIN32
     system("cls");
 #else
     system("clear");
@@ -344,9 +343,49 @@ int clientMenu(vector <string>& card, vector<string>& cardNumbers, vector<string
 };
 
 
-void adminMenu();
+void adminMenu(vector<string>& cardNums, vector<string>& pins, vector<double>& bals, vector<string>& banks, vector<string>& types, int billCount[] ); {
+    int adminChoice;
+    string pause;
 
+    while(true) {
+        clearScreen();
+        cout << "======= ADMIN PANEL =======\n";
+        cout << "[1] View All Accounts\n";
+        cout << "[2] Add New Account\n";
+        cout << "[3] Log Out\n";
+        cout << "Choice: ";
+        cin >> adminChoice;
 
+        if(adminChoice == 1) {
+            cout << "\n--- LIST OF REGISTERED ACCOUNTS ---\n";
+            for(int i = 0; i < cardNumbers.size(); i++) {
+                cout << "Acc: " << cardNumbers[i] << " | Bal: " << balances[i] 
+                     << " | Bank: " << userBanks[i] << endl;
+    }
+            cout << "\nEnter any character to continue: ";
+            cin >> pause;
+}
+    else if(adminChoice == 2) {
+            string nCard, nPin, nBank, nType;
+            double nBal;
+            cout << "Card Number: "; cin >> nCard;
+            cout << "PIN: "; cin >> nPin;
+            cout << "Bank: "; cin >> nBank;
+            cout << "Type (Local/Intl): "; cin >> nType;
+            cout << "Initial Bal: "; cin >> nBal;
+
+            // Adding data to parallel vectors
+            cardNumbers.push_back(nCard);
+            encodedPINs.push_back(nPin);
+            balances.push_back(nBal);
+            userBanks.push_back(nBank);
+            accountTypes.push_back(nType);
+            
+            cout << "Account Added! Press any key: "; cin >> pause;
+        }
+        else if(adminChoice == 3) break;
+    }
+}
 
 int main(){
     const int NUM_BANKS = 4;
